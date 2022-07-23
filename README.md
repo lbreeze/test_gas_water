@@ -32,7 +32,13 @@ After that you can add records via REST-service `/measurement/add` by `POST`ing 
 }
 ```
 
-All field are required. `usage` field is limited by `1000` value as maximum, also.
+All field are required. `usage` field is limited by `0` value as minimum, also.
 `type` values are restricted to `GAS`, `WATER_HOT`, `WATER_COLD`.
 
 Next, you can list records via `GET`-request at `/measurement/history/{userId}` where `{userId}` is a value you passed while adding records before.
+
+## Extra features
+
+- Added SWAGGER support
+- Validate usage volumes: only increasing values accepted for user and measurement type.
+- Added exception handler support

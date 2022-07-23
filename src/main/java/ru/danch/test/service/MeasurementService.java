@@ -7,6 +7,7 @@ import ru.danch.test.dto.MeasurementDto;
 import ru.danch.test.dto.MeasurementMapper;
 import ru.danch.test.model.MeasurementEntity;
 import ru.danch.test.repository.MeasurementRepository;
+import ru.danch.test.service.helper.MeasurementHelper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,10 +19,12 @@ public class MeasurementService {
 
     private final MeasurementRepository measurementRepository;
     private final MeasurementMapper measurementMapper;
+    private final MeasurementHelper measurementHelper;
 
-    public MeasurementService(MeasurementRepository measurementRepository, MeasurementMapper measurementMapper) {
+    public MeasurementService(MeasurementRepository measurementRepository, MeasurementMapper measurementMapper, MeasurementHelper measurementHelper) {
         this.measurementRepository = measurementRepository;
         this.measurementMapper = measurementMapper;
+        this.measurementHelper = measurementHelper;
     }
 
     public List<MeasurementDto> getHistoryOfUser(Long userId) {
@@ -29,6 +32,8 @@ public class MeasurementService {
     }
 
     public MeasurementDto save(MeasurementDto measurementDto) {
+        measurementHelper.validateRequest(measurementDto);
+
         MeasurementEntity toSave = measurementMapper.toEntity(measurementDto);
 /*
         if (Objects.nonNull(toSave.getId())) {
